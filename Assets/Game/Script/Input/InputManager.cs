@@ -2,14 +2,15 @@ using System;
 using UnityEngine; 
 public class InputManager : MonoBehaviour { 
     public Action<Vector2> OnMoveInput;
-
     public Action<bool> OnSprintInput;
-
     public Action OnJumpInput;
-
     public Action OnClimbInput;
-
     public Action OnCancelClimb;
+    public Action OnChangePOV;
+    public Action OnCrouchInput;
+    public Action OnGlideInput;
+    public Action OnCancelGlide;
+    public Action OnPunchInput;
 
 
     private void Update() 
@@ -64,7 +65,7 @@ public class InputManager : MonoBehaviour {
         bool isPressCrouchInput = Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl);
         if (isPressCrouchInput)
         {
-        Debug.Log("Crouch");
+        OnCrouchInput();
         }
     }
  
@@ -74,7 +75,11 @@ public class InputManager : MonoBehaviour {
  
         if (isPressChangePOVInput)
         {
-        Debug.Log("Change POV");
+            if (OnChangePOV != null)
+            {
+                OnChangePOV();
+            
+            }
         }
     }
  
@@ -94,7 +99,10 @@ public class InputManager : MonoBehaviour {
  
         if (isPressGlideInput)
         {
-        Debug.Log("Glide");
+            if (OnGlideInput != null)
+            {
+            OnGlideInput();
+            }
         }
     }
  
@@ -108,6 +116,10 @@ public class InputManager : MonoBehaviour {
             {
             OnCancelClimb();
             }
+        if (OnCancelGlide != null)
+            {
+            OnCancelGlide();
+            }
         }
     }
  
@@ -117,7 +129,7 @@ public class InputManager : MonoBehaviour {
  
         if (isPressPunchInput)
         {
-        Debug.Log("Punch");
+        OnPunchInput();
         }
     }
  
